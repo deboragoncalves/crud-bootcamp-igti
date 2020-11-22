@@ -1,6 +1,6 @@
 # Crud - Bootcamp IGTI
 
-## This simple project was done during a class in the IGTI Bootcamp (Dev Frontend). It were done a CRUD of users name, using HTML, CSS e JS (vanilla).
+## This simple project was done during a class in the IGTI Bootcamp (Dev Frontend). It were done a CRUD of users name, using HTML, CSS e JS (vanilla). To add a name, you can only press ENTER; to edit, just click on a item list.
 
 ### Requisits 
 
