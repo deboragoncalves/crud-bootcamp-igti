@@ -6,6 +6,14 @@ var globalNames = ['Luis', 'Roberto', 'Maria', 'Luciana', 'Débora'];
 
 var inputName = document.querySelector('#name');
 
+// Detectar edição
+
+var isEditing = false;
+
+// Indice nome
+
+var indexName = null;
+
 function start() {
   preventFormSubmit();
   inputFocus();
@@ -45,18 +53,41 @@ function getInputValue() {
   inputName.addEventListener('keyup', getValue);
 
   function getValue(event) {
-    // Pegar valor quando apertar enter
 
-    if (event.key === 'Enter') {
-      // Adicionar nome na lista
+    // Pegar valor quando apertar enter, se não for vazio
+    // Trim: verifica se não tem espaços em branco
+
+    if (event.key === 'Enter' && (event.target.value.length > 0 && event.target.value.trim() !== "")) {
+
+      console.log(event.target.value)
 
       var newName = event.target.value;
-      globalNames.push(newName);
 
-      // Exibir lista com novo nome
+      if (isEditing) {
+
+        // Atualizar nome conforme o index do nome clicado
+
+        globalNames[indexName] = newName;
+
+        clearInput();
+
+      } else {
+
+        // Adicionar nome na lista 
+
+        globalNames.push(newName);
+
+      }
+
+      // Mostrar lista 
 
       populateList();
-    }
+
+      // Desativar edição
+
+      isEditing = false;
+
+    } 
   }
 }
 
@@ -82,10 +113,8 @@ function populateList() {
     // Criar li, span e button
 
     var li = document.createElement('li');
-    var span = document.createElement('span');
+    var span = createSpan(currentName, i);
     var button = createDeleteButton(i);
-
-    span.textContent = currentName;
 
     // Adicionar nome e button ao item da Lista
 
@@ -101,6 +130,34 @@ function populateList() {
 
   divNames.appendChild(ul);
   clearInput();
+}
+
+function createSpan(name, index) {
+
+  var span = document.createElement('span');
+
+  span.textContent = name;
+
+  // Adicionar classe ao span
+
+  span.classList.add('item-list');
+
+  // click
+
+  span.addEventListener('click', editName);
+
+  function editName() {
+
+    // Inserir valor no input e trocar variável para true
+
+    inputName.value = name;
+    inputName.focus();
+    isEditing = true;
+    indexName = index;
+  }
+
+  return span;
+
 }
 
 // Criar button delete
@@ -124,7 +181,7 @@ function createDeleteButton(index) {
     globalNames.splice(index, 1);
 
     // Mostrar lista
-    
+
     populateList();
   }
 
