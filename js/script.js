@@ -52,7 +52,10 @@ function getInputValue() {
 
       var newName = event.target.value;
       globalNames.push(newName);
-      console.log(globalNames)
+
+      // Exibir lista com novo nome
+
+      populateList();
     }
   }
 }
@@ -65,7 +68,7 @@ function populateList() {
 
   // Limpar Lista
 
-  divNames.innerHTML = '';
+  divNames.innerHTML = "";
 
   // Criar ul: createElement
 
@@ -76,13 +79,18 @@ function populateList() {
   for (var i = 0; i < globalNames.length; i++) {
     var currentName = globalNames[i];
 
-    // Criar li
+    // Criar li, span e button
 
     var li = document.createElement('li');
+    var span = document.createElement('span');
+    var button = createDeleteButton(i);
 
-    // Adicionar nome ao item da Lista
+    span.textContent = currentName;
 
-    li.textContent = currentName;
+    // Adicionar nome e button ao item da Lista
+
+    li.appendChild(button);
+    li.appendChild(span);
 
     // Adicionar item a ul
 
@@ -92,4 +100,44 @@ function populateList() {
   // Adicionar ul a div
 
   divNames.appendChild(ul);
+  clearInput();
+}
+
+// Criar button delete
+
+function createDeleteButton(index) {
+  var button = document.createElement('button');
+  button.textContent = "x";
+
+  // Adicionar classe ao button
+
+  button.classList.add("deleteButton");
+
+  // Escutar click
+
+  button.addEventListener('click', deleteName);
+
+  function deleteName() {
+
+    // Splice: exclui elementos. posição (1o argumento), qtde elementos (2o), elementos a serem acrescentados (3o - opcional)
+
+    globalNames.splice(index, 1);
+
+    // Mostrar lista
+    
+    populateList();
+  }
+
+  return button;
+}
+
+// Limpar input ao adicionar na Lista
+
+function clearInput() {
+
+  inputName.value = "";
+
+  // Focus
+
+  inputName.focus();
 }
