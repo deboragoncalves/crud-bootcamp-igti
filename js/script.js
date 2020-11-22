@@ -1,31 +1,95 @@
-// Lista inicial 
+// Lista inicial
 
-var globalNames = ["Luis", "Roberto", "Maria", "Luciana"];
+var globalNames = ['Luis', 'Roberto', 'Maria', 'Luciana', 'Débora'];
 
 // Input
 
-var inputName = document.querySelector("#name");
+var inputName = document.querySelector('#name');
+
+function start() {
+  preventFormSubmit();
+  inputFocus();
+  populateList();
+}
+
+start();
 
 // Evitar recarregar a página quando submeter formulário: prevent default
 
 function preventFormSubmit() {
-  var form = document.querySelector("form")
+  var form = document.querySelector('form');
 
   // Escutar evento de submit e executar função
 
-  form.addEventListener('submit', formSubmit)
+  form.addEventListener('submit', formSubmit);
 
   function formSubmit(event) {
     event.preventDefault();
   }
 }
 
-preventFormSubmit();
-
 // Input onfocus quando carregar a página
 
 function inputFocus() {
-  inputName.focus()
+
+  // Pegar nome input
+
+  getInputValue();
+
+  inputName.focus();
 }
 
-inputFocus();
+function getInputValue() {
+  // Keyup: quando solta a tecla
+
+  inputName.addEventListener('keyup', getValue);
+
+  function getValue(event) {
+    // Pegar valor quando apertar enter
+
+    if (event.key === 'Enter') {
+      // Adicionar nome na lista
+
+      var newName = event.target.value;
+      globalNames.push(newName);
+      console.log(globalNames)
+    }
+  }
+}
+
+function populateList() {
+
+  // Pegar div
+
+  var divNames = document.querySelector('#names');
+
+  // Limpar Lista
+
+  divNames.innerHTML = '';
+
+  // Criar ul: createElement
+
+  var ul = document.createElement('ul');
+
+  // Percorrer array de Nomes
+
+  for (var i = 0; i < globalNames.length; i++) {
+    var currentName = globalNames[i];
+
+    // Criar li
+
+    var li = document.createElement('li');
+
+    // Adicionar nome ao item da Lista
+
+    li.textContent = currentName;
+
+    // Adicionar item a ul
+
+    ul.appendChild(li);
+  }
+
+  // Adicionar ul a div
+
+  divNames.appendChild(ul);
+}
