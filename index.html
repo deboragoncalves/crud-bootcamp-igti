@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./styles/main.css">
-  <title>Cadastro de nomes</title>
-</head>
-<body>
-  <h1>Cadastro de nomes</h1>
-  <form action="">
-    <label for="name">Nome</label>
-    <input type="text" name="name" id="name" placeholder="Digite o seu nome">
-  </form>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <title>Cadastro de nomes</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Cadastro de nomes</h1>
+      <form action="">
+        <div class="container-input">
+          <label for="name">Nome</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Digite o seu nome"
+          />
+        </div>
+      </form>
 
-  <h2>Nomes cadastrados</h2>
-  <div id="names"></div>
-  
-<!-- Defer: executar após load do DOM -->
+      <div class="container-list">
+        <h2>Nomes cadastrados</h2>
+        <div id="names"></div>
+      </div>
+    </div>
 
-<script defer src="./js/script.js"></script>
-</body>
+    <!-- Defer: executar após load do DOM -->
+
+    <script defer src="./js/script.js"></script>
+  </body>
 </html>
