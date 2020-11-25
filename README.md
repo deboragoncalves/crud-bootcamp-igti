@@ -12,6 +12,8 @@
 
 #### 2. In the terminal, type:
 
+##### cd crud-bootcamp-igti
+
 #### 3. Open the file named by "index.html".
 
 
