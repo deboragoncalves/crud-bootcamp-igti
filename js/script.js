@@ -1,18 +1,18 @@
 // Lista inicial
 
-var globalNames = ['Luis', 'Roberto', 'Maria', 'Luciana', 'Débora'];
+let globalNames = ['Luis', 'Roberto', 'Maria', 'Luciana', 'Débora'];
 
 // Input
 
-var inputName = document.querySelector('#name');
+let inputName = document.querySelector('#name');
 
 // Detectar edição
 
-var isEditing = false;
+let isEditing = false;
 
 // Indice nome
 
-var indexName = null;
+let indexName = null;
 
 function start() {
   preventFormSubmit();
@@ -25,7 +25,7 @@ start();
 // Evitar recarregar a página quando submeter formulário: prevent default
 
 function preventFormSubmit() {
-  var form = document.querySelector('form');
+  let form = document.querySelector('form');
 
   // Escutar evento de submit e executar função
 
@@ -61,7 +61,7 @@ function getInputValue() {
 
       console.log(event.target.value)
 
-      var newName = event.target.value;
+      let newName = event.target.value;
 
       if (isEditing) {
 
@@ -75,7 +75,9 @@ function getInputValue() {
 
         // Adicionar nome na lista 
 
-        globalNames.push(newName);
+        globalNames = [...globalNames, newName];
+
+        clearInput();
 
       }
 
@@ -95,7 +97,7 @@ function populateList() {
 
   // Pegar div
 
-  var divNames = document.querySelector('#names');
+  let divNames = document.querySelector('#names');
 
   // Limpar Lista
 
@@ -103,18 +105,19 @@ function populateList() {
 
   // Criar ul: createElement
 
-  var ul = document.createElement('ul');
+  let ul = document.createElement('ul');
 
   // Percorrer array de Nomes
 
-  for (var i = 0; i < globalNames.length; i++) {
-    var currentName = globalNames[i];
+  for (let i = 0; i < globalNames.length; i++) {
+
+    let currentName = globalNames[i];
 
     // Criar li, span e button
 
-    var li = document.createElement('li');
-    var span = createSpan(currentName, i);
-    var button = createDeleteButton(i);
+    let li = document.createElement('li');
+    let span = createSpan(currentName, i);
+    let button = createDeleteButton(i);
 
     // Adicionar nome e button ao item da Lista
 
@@ -134,7 +137,7 @@ function populateList() {
 
 function createSpan(name, index) {
 
-  var span = document.createElement('span');
+  let span = document.createElement('span');
 
   span.textContent = name;
 
@@ -163,7 +166,8 @@ function createSpan(name, index) {
 // Criar button delete
 
 function createDeleteButton(index) {
-  var button = document.createElement('button');
+  let button = document.createElement('button');
+
   button.textContent = "x";
 
   // Adicionar classe ao button
@@ -178,17 +182,20 @@ function createDeleteButton(index) {
 
     // Splice: exclui elementos. posição (1o argumento), qtde elementos (2o), elementos a serem acrescentados (3o - opcional)
 
-    globalNames.splice(index, 1);
+    // Filter: índice atual (i) for igual ao index do item clicado = excluir, retornar diferença.
+
+    globalNames = globalNames.filter((name, i) => i !== index);
 
     // Mostrar lista
 
     populateList();
+    
   }
 
   return button;
 }
 
-// Limpar input ao adicionar na Lista
+// Limpar input ao adicionar na lista
 
 function clearInput() {
 
@@ -197,4 +204,5 @@ function clearInput() {
   // Focus
 
   inputName.focus();
-}
+
+};
